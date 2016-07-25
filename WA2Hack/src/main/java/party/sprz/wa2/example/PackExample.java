@@ -18,13 +18,14 @@ public class PackExample {
    */
   public static void readUsingPackFile() {
     try (PackFile pf = new PackFile("C:\\Leaf\\WHITE ALBUM2\\script.PAK")) {
-      Files.createDirectories(Paths.get("temp"));
+      Files.createDirectories(Paths.get("out"));
       for (Enumeration<? extends PackEntry> e = pf.entries(); e.hasMoreElements();) {
         PackEntry entry = e.nextElement();
+        System.out.println(entry.getName());
         try (InputStream is = pf.getInputStream(entry)) {
           byte[] b = new byte[entry.getSize()];
           is.read(b);
-          try (FileOutputStream output = new FileOutputStream("temp/" + entry.getName())) {
+          try (FileOutputStream output = new FileOutputStream("out/" + entry.getName())) {
             output.write(b);
           }
         }
@@ -40,12 +41,13 @@ public class PackExample {
   public static void readUsingPackInputStream() {
     try (PackInputStream pis =
         new PackInputStream(new FileInputStream("C:\\Leaf\\WHITE ALBUM2\\script.PAK"))) {
-      Files.createDirectories(Paths.get("temp"));
+      Files.createDirectories(Paths.get("out"));
       PackEntry entry;
       while ((entry = pis.getNextEntry()) != null) {
+        System.out.println(entry.getName());
         byte[] b = new byte[entry.getSize()];
         pis.read(b);
-        try (FileOutputStream output = new FileOutputStream("temp/" + entry.getName())) {
+        try (FileOutputStream output = new FileOutputStream("out/" + entry.getName())) {
           output.write(b);
         }
       }

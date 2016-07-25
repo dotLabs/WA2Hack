@@ -196,6 +196,16 @@ public class PackFile implements Closeable, PackConstants {
    */
   public InputStream getInputStream(PackEntry entry) throws IOException {
     Objects.requireNonNull(entry);
+    if (streams.get(entry.getName()) == null) {
+      InputStream in = createInputStream(entry);
+      if (in != null) {
+        streams.put(entry.getName(), createInputStream(entry));
+      }
+    }
+    return streams.get(entry.getName());
+  }
+
+  public InputStream createInputStream(PackEntry entry) throws IOException {
     InputStream in = null;
     synchronized (this) {
       ensureOpen();
@@ -205,7 +215,6 @@ public class PackFile implements Closeable, PackConstants {
         in = new PackFileInputStream(file, entry);
       }
     }
-    streams.put(entry.getName(), in);
     return in;
   }
 
