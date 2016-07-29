@@ -9,6 +9,8 @@ import java.io.IOException;
  *
  */
 public class PackException extends IOException {
+  private static final long serialVersionUID = 4940755595804771097L;
+
   /**
    * エラー詳細メッセージとしてnullを設定してPackExceptionを構築します。
    */

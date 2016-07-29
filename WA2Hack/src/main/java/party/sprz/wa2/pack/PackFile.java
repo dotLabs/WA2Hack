@@ -312,9 +312,8 @@ public class PackFile implements Closeable, PackConstants {
       byte[] b = new byte[1];
       if (read(b, 0, 1) == 1) {
         return b[0] & 0xff;
-      } else {
-        return -1;
       }
+      return -1;
     }
 
     @Override
@@ -353,9 +352,8 @@ public class PackFile implements Closeable, PackConstants {
       byte[] b = new byte[1];
       if (read(b, 0, 1) == 1) {
         return b[0] & 0xff;
-      } else {
-        return -1;
       }
+      return -1;
     }
 
     @Override

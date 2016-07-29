@@ -212,15 +212,14 @@ public class LZSSDecompresser implements Closeable, PackConstants {
     if (flag.get(blockDataIndex)) {
       readDirect(r1);
       return r1;
-    } else {
-      int r2 = readCompressedByte();
-      if (r2 == -1) {
-        return -1;
-      }
-      referenceLength = readUsingTable(r1, r2);
-      referenceRemaining = referenceLength - 1;
-      return Byte.toUnsignedInt(referenceCache[0]);
     }
+    int r2 = readCompressedByte();
+    if (r2 == -1) {
+      return -1;
+    }
+    referenceLength = readUsingTable(r1, r2);
+    referenceRemaining = referenceLength - 1;
+    return Byte.toUnsignedInt(referenceCache[0]);
   }
 
   private BitSet readFlag() {
