@@ -14,8 +14,8 @@ import java.util.Objects;
  *
  */
 public class LZSSDecompresser implements Closeable, PackConstants {
-  public final int SLIDING_WINDOW_SIZE = 0x1000;
-  public final int MAXIMUM_REFERENCE_LENGTH = 0x12;
+  public final static int SLIDING_WINDOW_SIZE = 0x1000;
+  public final static int MAXIMUM_REFERENCE_LENGTH = 0x12;
 
   private int compressedSize = -1;
   private int originalSize = -1;
@@ -213,6 +213,7 @@ public class LZSSDecompresser implements Closeable, PackConstants {
       readDirect(r1);
       return r1;
     }
+
     int r2 = readCompressedByte();
     if (r2 == -1) {
       return -1;
